@@ -1,0 +1,155 @@
+[gd_scene load_steps=12 format=3 uid="uid://ddxcrl8fuyjng"]
+
+[ext_resource type="Script" path="res://scale.gd" id="1_p7dk5"]
+[ext_resource type="Script" path="res://singleball.gd" id="2_tm47t"]
+[ext_resource type="Script" path="res://movement.gd" id="2_yfbnq"]
+[ext_resource type="Texture2D" uid="uid://cn8f843fl14uu" path="res://Ball-1.png.png" id="3_gyeft"]
+[ext_resource type="Texture2D" uid="uid://bcni73p0cupqg" path="res://New Piskel-1.png (1).png" id="4_x4mmq"]
+[ext_resource type="Script" path="res://boundarymovement.gd" id="5_yagpi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wx26l"]
+radius = 28.0179
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_slm4t"]
+size = Vector2(128, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cd6dy"]
+size = Vector2(468.25, 6297)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7xh63"]
+size = Vector2(10000, 1817)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_14b4q"]
+size = Vector2(18219, 2440)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Ball" type="Node2D" parent="."]
+top_level = true
+script = ExtResource("1_p7dk5")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Ball"]
+position = Vector2(360, 200)
+script = ExtResource("2_tm47t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball/CharacterBody2D"]
+shape = SubResource("CircleShape2D_wx26l")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ball/CharacterBody2D"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_gyeft")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Ball/CharacterBody2D/Sprite2D"]
+
+[node name="Paddle" type="Node2D" parent="." groups=["player"]]
+script = ExtResource("1_p7dk5")
+
+[node name="Sprite2D" type="Sprite2D" parent="Paddle" groups=["player"]]
+top_level = true
+position = Vector2(360, 1100)
+texture = ExtResource("4_x4mmq")
+script = ExtResource("2_yfbnq")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Paddle/Sprite2D" groups=["player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle/Sprite2D/CharacterBody2D" groups=["player"]]
+shape = SubResource("RectangleShape2D_slm4t")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(360, 640)
+
+[node name="Boundaries" type="Node2D" parent="."]
+position = Vector2(360, 640)
+script = ExtResource("5_yagpi")
+
+[node name="RightBound" type="CharacterBody2D" parent="Boundaries"]
+position = Vector2(360, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/RightBound" groups=["wall"]]
+position = Vector2(234, 0)
+shape = SubResource("RectangleShape2D_cd6dy")
+
+[node name="LeftBound" type="CharacterBody2D" parent="Boundaries"]
+position = Vector2(-360, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/LeftBound" groups=["wall"]]
+position = Vector2(-234, 0)
+shape = SubResource("RectangleShape2D_cd6dy")
+
+[node name="TopBound" type="CharacterBody2D" parent="Boundaries" groups=["top"]]
+position = Vector2(0, -640)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/TopBound" groups=["wall"]]
+position = Vector2(0, -909)
+shape = SubResource("RectangleShape2D_7xh63")
+
+[node name="Death" type="CharacterBody2D" parent="Boundaries" groups=["death"]]
+position = Vector2(0, 480)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Death" groups=["death"]]
+position = Vector2(0, 1220)
+shape = SubResource("RectangleShape2D_14b4q")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="death message" type="Node2D" parent="Control"]
+top_level = true
+
+[node name="Label" type="Label" parent="Control/death message"]
+offset_left = 11.0
+offset_top = 201.0
+offset_right = 953.0
+offset_bottom = 474.0
+theme_override_font_sizes/font_size = 150
+metadata/_edit_use_anchors_ = true
+
+[node name="Retry" type="Button" parent="Control/death message"]
+process_mode = 3
+visible = false
+offset_left = 114.0
+offset_top = 729.0
+offset_right = 631.0
+offset_bottom = 847.0
+theme_override_font_sizes/font_size = 80
+text = "Retry"
+
+[node name="End" type="Button" parent="Control/death message"]
+process_mode = 3
+visible = false
+offset_left = 114.0
+offset_top = 881.0
+offset_right = 631.0
+offset_bottom = 999.0
+theme_override_font_sizes/font_size = 80
+text = "To Title
+"
+
+[node name="Points" type="Node2D" parent="Control"]
+top_level = true
+
+[node name="Label" type="Label" parent="Control/Points"]
+offset_left = 111.0
+offset_top = 454.0
+offset_right = 613.0
+offset_bottom = 727.0
+theme_override_font_sizes/font_size = 200
+text = "0"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="BlueDrag" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_left = -14985.0
+offset_top = -15527.0
+offset_right = 24800.0
+offset_bottom = 11998.0
+color = Color(0.148561, 0.251359, 0.0381626, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[connection signal="pressed" from="Control/death message/Retry" to="Ball/CharacterBody2D" method="_on_retry_pressed"]
+[connection signal="pressed" from="Control/death message/End" to="Ball/CharacterBody2D" method="_on_end_pressed"]

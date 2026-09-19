@@ -1,0 +1,106 @@
+[gd_scene load_steps=10 format=3 uid="uid://cwfs864j4xpad"]
+
+[ext_resource type="Script" path="res://title_screen.gd" id="1_1e67o"]
+[ext_resource type="Texture2D" uid="uid://cn8f843fl14uu" path="res://Ball-1.png.png" id="2_r01t2"]
+[ext_resource type="Script" path="res://switchplayer.gd" id="3_p25s6"]
+[ext_resource type="Texture2D" uid="uid://dye1xm3plvasg" path="res://Ball-2.png.png" id="4_2bdfi"]
+[ext_resource type="Texture2D" uid="uid://che25hdtpbshs" path="res://Ball-3.png.png" id="5_1b7t6"]
+[ext_resource type="Texture2D" uid="uid://dkrv1pwrsvmba" path="res://Ball-4.png.png" id="6_cshjn"]
+[ext_resource type="Texture2D" uid="uid://bfwkpc5tw61q1" path="res://Ball-5.png.png" id="7_o2au1"]
+[ext_resource type="Texture2D" uid="uid://cly7tdfxmoocm" path="res://Ball-6.png.png" id="8_c5nbu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u2ip4"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+follow_viewport_enabled = true
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1e67o")
+
+[node name="Button" type="Button" parent="Control"]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -222.0
+offset_top = 41.0
+offset_right = 222.0
+offset_bottom = 207.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 80
+text = "Start Game"
+
+[node name="Quit" type="Button" parent="Control"]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -222.0
+offset_top = 250.0
+offset_right = 222.0
+offset_bottom = 416.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 80
+text = "Quit
+"
+
+[node name="Label" type="Label" parent="Control"]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -291.0
+offset_top = -534.0
+offset_right = 291.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 200
+text = "PONG"
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_left = -15013.0
+offset_top = -15558.0
+offset_right = 24772.0
+offset_bottom = 11967.0
+color = Color(0.148561, 0.251359, 0.0381626, 1)
+
+[node name="Player" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -116.0
+offset_top = -265.0
+offset_right = 116.0
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u2ip4")
+icon = ExtResource("2_r01t2")
+flat = true
+script = ExtResource("3_p25s6")
+icons = Array[Texture2D]([ExtResource("2_r01t2"), ExtResource("4_2bdfi"), ExtResource("5_1b7t6"), ExtResource("6_cshjn"), ExtResource("7_o2au1"), ExtResource("8_c5nbu")])
+
+[connection signal="pressed" from="Control/Quit" to="Control" method="_on_quit_pressed"]
